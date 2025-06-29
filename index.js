@@ -1,14 +1,14 @@
-import{a as f,S as p,i as a}from"./assets/vendor-CauDeeDU.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))n(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const i of t.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function o(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function n(e){if(e.ep)return;e.ep=!0;const t=o(e);fetch(e.href,t)}})();const m="https://pixabay.com/api/",g="51082200-d89cb29d811094b68c71827c6";async function y(s){const r={key:g,q:s,image_type:"photo",orientation:"horizontal",safesearch:!0};return(await f.get(m,{params:r})).data}const c=document.querySelector(".gallery"),l=document.querySelector(".loader");let h=new p(".gallery a");function b(s){const r=s.map(({webformatURL:o,largeImageURL:n,tags:e,likes:t,views:i,comments:u,downloads:d})=>`
-        <li class="gallery-item">
-          <a href="${n}">
-            <img src="${o}" alt="${e}" />
-          </a>
-          <div class="info">
-            <p><b>Likes</b> ${t}</p>
-            <p><b>Views</b> ${i}</p>
-            <p><b>Comments</b> ${u}</p>
-            <p><b>Downloads</b> ${d}</p>
-          </div>
-        </li>
-      `).join("");c.insertAdjacentHTML("beforeend",r),h.refresh()}function L(){c.innerHTML=""}function w(){l.classList.remove("hidden")}function S(){l.classList.add("hidden")}const v=document.querySelector(".form");v.addEventListener("submit",async s=>{s.preventDefault();const r=s.target.elements["search-text"].value.trim();if(!r){a.warning({message:"Please enter a search term.",position:"topRight"});return}L(),w();try{const o=await y(r);o.hits.length===0?a.info({message:"Sorry, there are no images matching your search query. Please try again!",position:"topRight"}):b(o.hits)}catch(o){a.error({message:"Something went wrong. Try again!",position:"topRight"}),console.error(o)}finally{S()}});
+import{a as w,S as v,i as a}from"./assets/vendor-CauDeeDU.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))i(t);new MutationObserver(t=>{for(const o of t)if(o.type==="childList")for(const n of o.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&i(n)}).observe(document,{childList:!0,subtree:!0});function s(t){const o={};return t.integrity&&(o.integrity=t.integrity),t.referrerPolicy&&(o.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?o.credentials="include":t.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function i(t){if(t.ep)return;t.ep=!0;const o=s(t);fetch(t.href,o)}})();const B="https://pixabay.com/api/",S="51082200-d89cb29d811094b68c71827c6";async function q(e,r=1){const s={key:S,q:e,page:r,per_page:15,image_type:"photo",orientation:"horizontal",safesearch:!0};return(await w.get(B,{params:s})).data}const p=document.querySelector(".gallery"),m=document.querySelector(".loader"),h=document.querySelector(".load-more-btn");let x=new v(".gallery a",{captionDelay:250,captionPosition:"bottom",captionsData:"alt"});function O(e){const r=e.map(({webformatURL:s,largeImageURL:i,tags:t,likes:o,views:n,comments:b,downloads:L})=>`
+    <li class="gallery-item">
+      <a href="${i}">
+        <img src="${s}" alt="${t}" />
+      </a>
+      <div class="info">
+        <p><b>Likes</b><br>${o}</p>
+        <p><b>Views</b><br>${n}</p>
+        <p><b>Comments</b><br>${b}</p>
+        <p><b>Downloads</b><br>${L}</p>
+      </div>
+    </li>
+  `).join("");p.insertAdjacentHTML("beforeend",r),x.refresh()}function $(){p.innerHTML=""}function g(){m.classList.remove("hidden")}function P(){m.classList.add("hidden")}function M(){h.classList.remove("hidden")}function u(){h.classList.add("hidden")}const C=document.querySelector(".form"),A=document.querySelector(".load-more-btn");let l="",c=1,f=0,d=0;C.addEventListener("submit",async e=>{if(e.preventDefault(),l=e.target.elements["search-text"].value.trim(),l===""){a.error({message:"Please, fill in the field!",closeOnClick:!0,position:"topRight"});return}c=1,d=0,$(),g(),await y()});A.addEventListener("click",async()=>{g(),await y();const e=document.querySelectorAll(".image-box");if(e.length){const s=e[0].getBoundingClientRect().height;console.log(s),window.scrollBy({top:s*2,behavior:"smooth"})}});const y=async()=>{try{u();const e=await q(l,c);if(c===1&&(f=e.totalHits,!e.hits.length)){a.error({message:"Sorry, there are no images matching your search query. Please try again!",closeOnClick:!0,position:"topRight"});return}O(e.hits),c++,d+=e.hits.length,d>=f?(u(),a.error({message:"We're sorry, but you've reached the end of search results.",closeOnClick:!0,position:"topRight"})):M()}catch(e){a.error({message:`${e}`})}finally{P()}};
 //# sourceMappingURL=index.js.map
