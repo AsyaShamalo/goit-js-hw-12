@@ -17,6 +17,7 @@ form {
   justify-content: center;
   align-items: center;
   margin-top: 36px;
+  margin-bottom: 32px;
 }
 
 button {
@@ -179,4 +180,20 @@ b {
   100% {
     transform: rotate(0deg);
   }
+}
+
+.load-more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  margin: 32px auto;
+}
+.hidden {
+  display: none;
 }
